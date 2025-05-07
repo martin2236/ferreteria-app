@@ -71,7 +71,7 @@ class ListaCompra extends StatelessWidget {
                 ),
 
                 const Text('Mi compra'),
-                Container(
+                SizedBox(
                   height: size.height * 0.6,
                   width: size.width,
                   child: GridView.builder(

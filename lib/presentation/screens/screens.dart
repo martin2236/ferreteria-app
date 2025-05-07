@@ -1,1 +1,1 @@
-export './agregar_producto_screen.dart';
+export '../views/productos/crear_producto_screen.dart';

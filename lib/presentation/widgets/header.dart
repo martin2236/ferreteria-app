@@ -5,7 +5,7 @@ class HeaderWaves extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: double.infinity,
       width: double.infinity,
       //color: Colors.purple,

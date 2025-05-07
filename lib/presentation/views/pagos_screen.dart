@@ -3,18 +3,20 @@
 
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:control_app/presentation/widgets/header.dart';
 
-class ComprasScreen extends StatelessWidget {
-  const ComprasScreen({super.key});
+class PagosScreen extends StatelessWidget {
+  const PagosScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final text = Theme.of(context).textTheme;
     return Scaffold(
+      backgroundColor: Colors.white,
         body: Column(
           children:[
             SizedBox(
@@ -42,22 +44,54 @@ class ComprasScreen extends StatelessWidget {
               ),
             ),
               Container(
-              height: size.height * 0.70,
+              height: size.height * 0.80,
               width:size.width,
+              child:  Row(children: [
+                Container(
+                  color: Colors.white,
+                  height: size.height * 0.80,
+                  width: size.width * 0.20,
+                  child:  Column(children: [
+                   TextButton(onPressed: (){context.replace('/productos');}, child:const Text('Productos')),
+                    TextButton(
+                          onPressed: () {context.replace('/proveedores');}, child: const Text('Proveedores')),
+                    TextButton(
+                          onPressed: () {context.replace('/categorias');}, child: const Text('Categorias')),
+                    TextButton(
+                          onPressed: () {context.replace('/marcas');}, child: const Text('Marcas')),
+                   TextButton(onPressed: (){}, child:const Text('Pagos')),
+                   
+                  ],),
+                ),
+                Container(
+                  width: size.width * 0.03,
+                  height: size.height *0.9,
+                  color: Colors.purple.shade100,
+                ),
+               SizedBox(
+              height: size.height * 0.8,
+              width:size.width * 0.77,
               child: const Column(children: [
                   _Calendar(),
+                  SizedBox(height: 20.0),
                   _ComprasContainer()
               ],
               )
             )
+              ],
+              )
+            )
+              
             ]
         ),
     );
   }
 }
 
+
+
 class _Calendar extends StatefulWidget {
-  const _Calendar({super.key});
+  const _Calendar();
 
   @override
   State<_Calendar> createState() => _CalendarState();
@@ -156,14 +190,14 @@ final List<Compra> compras = [
 ];
 
 class _ComprasContainer extends StatelessWidget {
-  const _ComprasContainer({super.key});
+  const _ComprasContainer();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return SizedBox(
-        height: size.height * 0.55,
-        width: size.width,
+        height: size.height * 0.6,
+        width: size.width * 0.50,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: GridView.builder(

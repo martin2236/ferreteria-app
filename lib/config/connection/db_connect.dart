@@ -1,5 +1,5 @@
 import 'package:sqflite/sqflite.dart';
-
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class DataBase {
   
@@ -11,6 +11,7 @@ class DataBase {
         await db.execute('''
           CREATE TABLE categorias (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            imagen TEXT,
             nombre TEXT NOT NULL,
             updated_at INTEGER DEFAULT (strftime('%s', 'now')),
             deleted_at INTEGER
@@ -18,6 +19,16 @@ class DataBase {
         ''');
 
         await db.execute('''
+          CREATE TABLE marcas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            imagen TEXT,
+            nombre TEXT NOT NULL,
+            updated_at INTEGER DEFAULT (strftime('%s', 'now')),
+            deleted_at INTEGER
+          );
+        ''');
+
+         await db.execute('''
           CREATE TABLE medidas (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre TEXT NOT NULL,
@@ -27,19 +38,68 @@ class DataBase {
         ''');
 
         await db.execute('''
+          CREATE TABLE proveedores (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            imagen TEXT,
+            color TEXT,
+            telefono TEXT,
+            email TEXT,
+            updated_at INTEGER DEFAULT (strftime('%s', 'now')),
+            deleted_at INTEGER
+          );
+        ''');
+
+         await db.execute('''
+          CREATE TABLE pagos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            monto TEXT NOT NULL,
+            imagen TEXT,
+            proveedor TEXT NOT NULL,
+            fecha INTEGER NOT NULL,
+            updated_at INTEGER DEFAULT (strftime('%s', 'now')),
+            deleted_at INTEGER
+          );
+        ''');
+
+        await db.execute('''
+          CREATE TABLE visitas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            dia TEXT NOT NULL,
+            updated_at INTEGER DEFAULT (strftime('%s', 'now')),
+            deleted_at INTEGER
+          );
+        ''');
+
+        await db.execute('''
+          CREATE TABLE detalle_visitas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            fkvisita INTEGER NOT NULL,
+            fkproveedor INTEGER NOT NULL,
+            FOREIGN KEY (fkvisita) REFERENCES visitas(id),
+            FOREIGN KEY (fkproveedor) REFERENCES proveedores(id)
+          );
+        ''');
+
+        await db.execute('''
          CREATE TABLE productos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre TEXT NOT NULL,
             imagen TEXT NOT NULL,
             fkcategoria INTEGER NOT NULL,
-            fkunidad INTEGER NOT NULL,
+            fkmarca INTEGER,
+            fkmedida INTEGER NOT NULL,
+            fkproveedor INTEGER NOT NULL,
             estado INTEGER NOT NULL,
-            cantidad INTEGER NOT NULL,
+            stock INTEGER NOT NULL,
             precio REAL NOT NULL,
             updated_at INTEGER DEFAULT (strftime('%s', 'now')),
             deleted_at INTEGER,
             FOREIGN KEY (fkcategoria) REFERENCES categorias(id),
-            FOREIGN KEY (fkunidad) REFERENCES medidas(id)
+            FOREIGN KEY (fkproveedor) REFERENCES proveedor(id)
+            FOREIGN KEY (fkmarca) REFERENCES marcas(id)
+            FOREIGN KEY (fkmedida) REFERENCES medidas(id)
+         
           );
         ''');
 
@@ -70,8 +130,12 @@ class DataBase {
       },
       onOpen: (Database db) async {
         print('Base de datos abierta');
-        //await insertCategorias(db);
-        //await insertMedidas(db);
+        //  await insertCategorias(db);
+        //  await insertProveedores(db);
+        //  await insertMarcas(db);
+        //  await insertMedidas(db);
+        //  await insertVisitas(db);
+
       },
     );
   }
@@ -80,17 +144,33 @@ class DataBase {
     await db.execute('''
           INSERT INTO categorias (nombre)
           VALUES 
-          ('Auto'),
-          ('Comida'),
-          ('Bebida'),
-          ('Indumentaria'),
-          ('Recreacion'),
-          ('Servicios');
+          ('Tornillos'),
+          ('Bulones'),
+          ('Clavos'),
+          ('Alambres'),
+          ('PVC'),
+          ('Termofuión'),
+          ('Singueria')
         ''');
     print('categorias insertadas');
   }
 
-  static Future<void> insertMedidas(Database db) async {
+  static Future<void> insertMarcas(Database db) async {
+    await db.execute('''
+          INSERT INTO marcas (nombre)
+          VALUES 
+          ('Acindar'),
+          ('Crecchio'),
+          ('tacsa'),
+          ('bremen'),
+          ('bahco'),
+          ('skil'),
+          ('duke')
+        ''');
+    print('marcas insertadas');
+  }
+
+    static Future<void> insertMedidas(Database db) async {
     await db.execute('''
           INSERT INTO medidas (nombre)
           VALUES 
@@ -103,5 +183,33 @@ class DataBase {
           ('Metros');
         ''');
     print('medidas insertadas');
+  }
+
+  static Future<void> insertProveedores(Database db) async {
+    await db.execute('''
+          INSERT INTO proveedores (nombre)
+          VALUES 
+          ('IMP'),
+          ('Antolu'),
+          ('Cesar'),
+          ('Tony'),
+          ('Javier')
+        ''');
+        print('proveedores insertadas');
+  }
+
+  static Future<void> insertVisitas(Database db) async {
+    await db.execute('''
+          INSERT INTO visitas (dia)
+          VALUES 
+          ('Lunes'),
+          ('Martes'),
+          ('Miercoles'),
+          ('Jueves'),
+          ('Viernes'),
+          ('Sabado'),
+          ('Domingo')
+        ''');
+        print('visitas insertadas');
   }
 }

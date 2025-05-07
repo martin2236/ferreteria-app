@@ -71,42 +71,50 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         borderRadius: BorderRadius.circular(40),
         borderSide: const BorderSide(color: Colors.purple)
     );
-    return TextFormField(
-      controller: widget.controller,
-      onChanged: widget.onChanged,
-      onTapOutside: widget.onTapOutside ,
-      onEditingComplete:widget.onEditingComplete,
-      validator: widget.validator,
-       initialValue: widget.controller == null ? widget.initialValue : null,
-      keyboardType: widget.keyboardType,
-      textCapitalization: widget.capitalization ?? TextCapitalization.none,
-      textAlign: widget.alignText ? TextAlign.center : TextAlign.start,
-      obscureText: _isObscured,
-      decoration: InputDecoration(
-        enabledBorder: border,
-        focusedBorder: border.copyWith(borderSide: BorderSide(color: colors.primary)),
-        errorBorder: border.copyWith(borderSide: BorderSide(color: Colors.red.shade800)),
-        focusedErrorBorder: border,
-        filled: true,
-        isDense: true,
-        fillColor:widget.fillColor ?? Colors.white,
-        label: widget.label != null ? Text(widget.label!) : null,
-        labelStyle:widget.labelStyle ?? text.labelLarge!.copyWith(color: Colors.black26,),
-        floatingLabelStyle: text.labelLarge!.copyWith(color: colors.primary),
-        alignLabelWithHint: true,
-        suffixIcon: widget.suffixIcon ?? (widget.obscureText == true ? IconButton(
-              icon: Icon(
-                _isObscured ? Icons.visibility : Icons.visibility_off,
-                color: Colors.black26,
-              ),
-              onPressed: _toggleObscureText,
-            ) : null),
-        hintText: widget.hint,
-        hintStyle:widget.hintStyle ?? const TextStyle(color: Colors.black26),
-        errorText: widget.errorMessage,
-        focusColor: colors.primary,
-        prefixIcon:  widget.icon
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 5.0),
+          child: Text(widget.label ?? '', style: text.labelLarge!.copyWith(fontWeight: FontWeight.normal),),
+        ),
+        TextFormField(
+          controller: widget.controller,
+          onChanged: widget.onChanged,
+          onTapOutside: widget.onTapOutside ,
+          onEditingComplete:widget.onEditingComplete,
+          validator: widget.validator,
+           initialValue: widget.controller == null ? widget.initialValue : null,
+          keyboardType: widget.keyboardType,
+          textCapitalization: widget.capitalization ?? TextCapitalization.none,
+          textAlign: widget.alignText ? TextAlign.center : TextAlign.start,
+          obscureText: _isObscured,
+          decoration: InputDecoration(
+            enabledBorder: border,
+            focusedBorder: border.copyWith(borderSide: BorderSide(color: colors.primary)),
+            errorBorder: border.copyWith(borderSide: BorderSide(color: Colors.red.shade800)),
+            focusedErrorBorder: border,
+            filled: true,
+            fillColor:widget.fillColor ?? Colors.white,
+             floatingLabelBehavior: FloatingLabelBehavior.always, 
+            floatingLabelStyle: text.labelLarge!.copyWith(color: colors.primary),
+            alignLabelWithHint: true,
+            suffixIcon: widget.suffixIcon ?? (widget.obscureText == true ? IconButton(
+                  icon: Icon(
+                    _isObscured ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.black26,
+                  ),
+                  onPressed: _toggleObscureText,
+                ) : null),
+            hintText: widget.hint,
+            hintStyle:widget.hintStyle ?? const TextStyle(color: Colors.black26),
+            errorText: widget.errorMessage,
+            focusColor: colors.primary,
+            prefixIcon:  widget.icon
+          ),
+        ),
+      ],
     );
   }
 }

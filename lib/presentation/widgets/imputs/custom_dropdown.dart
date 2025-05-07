@@ -11,9 +11,8 @@ class CustomDropdown extends StatelessWidget {
   final String? Function(int?)? validator;
   final String? initialValue;
 
-
   const CustomDropdown({
-    super.key, 
+    super.key,
     this.label,
     this.hint,
     required this.items,
@@ -23,28 +22,34 @@ class CustomDropdown extends StatelessWidget {
     this.prefixIcon,
     this.validator,
     this.initialValue,
-  }) ;
+  });
 
   @override
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
     final border = OutlineInputBorder(
-        borderRadius: BorderRadius.circular(40),
-        borderSide: const BorderSide(color: Colors.purple
-        
-        
-        )
+      borderRadius: BorderRadius.circular(40),
+      borderSide: const BorderSide(color: Colors.purple),
     );
 
     return DropdownButtonFormField<int>(
-      
       validator: validator,
       isExpanded: true,
       isDense: true,
+      focusColor: Colors.transparent,
       value: value,
       onChanged: onChanged,
-      items: items,
+      enableFeedback: false, // Desactiva el feedback visual/sonoro
+      items: items.map((item) {
+        return DropdownMenuItem<int>(
+          value: item.value,
+          child: Container(
+            color: Colors.transparent, // Sin efecto de hover
+            child: item.child,
+          ),
+        );
+      }).toList(),
       decoration: InputDecoration(
         enabledBorder: border,
         focusedBorder:
@@ -62,7 +67,10 @@ class CustomDropdown extends StatelessWidget {
         hintStyle: text.labelLarge!.copyWith(color: Colors.black26),
         errorText: errorMessage,
         focusColor: colors.primary,
-        contentPadding:const EdgeInsets.symmetric(vertical: 15.0, horizontal: 12.0),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 15.0,
+          horizontal: 12.0,
+        ),
         prefixIcon: prefixIcon,
       ),
     );

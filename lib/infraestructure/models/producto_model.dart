@@ -10,7 +10,10 @@ class ProductoDb {
   final int id;
   final String nombre;
   final String imagen;
-  final String categoria;
+  final int categoria;
+  final int marca;
+  final int medida;
+  final int proveedor;
   final String cantidad;
   final String unidad;
   final double precio;
@@ -23,6 +26,9 @@ class ProductoDb {
     required this.nombre,
     required this.imagen,
     required this.categoria,
+    required this.marca,
+    required this.medida,
+    required this.proveedor,
     required this.cantidad,
     required this.unidad,
     required this.precio,
@@ -35,8 +41,11 @@ class ProductoDb {
         id: json["id"],
         nombre: json["nombre"],
         imagen: json["imagen"],
-        categoria: json["fkcategoria"].toString(), 
-        cantidad: json["cantidad"].toString(), 
+        categoria: json["fkcategoria"], 
+        marca: json["fkmarca"],
+        medida: json["fkmedida"],
+        proveedor: json["fkproveedor"],
+        cantidad: json["stock"].toString(), 
         unidad: json["fkunidad"].toString(), 
         precio: json["precio"].toDouble(),
         estado: json["estado"],
@@ -49,6 +58,9 @@ class ProductoDb {
         "nombre": nombre,
         "imagen": imagen,
         "categoria": categoria,
+        "marca": marca,
+        "medida": medida,
+        "proveedor": proveedor,
         "cantidad": cantidad,
         "unidad": unidad,
         "precio": precio,

@@ -6,6 +6,8 @@ class DataCubitState extends Equatable {
   final List<Producto> pedido;
   final List<Categoria>? categorias;
   final List<Medida>? medidas;
+  final List<Proveedor>? proveedores;
+  final List<Marca>? marcas;
   final List<Compra>? compras;
   final List<Producto>? productos;
 
@@ -14,6 +16,8 @@ class DataCubitState extends Equatable {
     this.nombreCompra,
     this.categorias,
     this.medidas,
+    this.proveedores,
+    this.marcas,
     this.compras,
     this.productos,
   });
@@ -24,6 +28,8 @@ class DataCubitState extends Equatable {
     String? nombreCompra,
     List<Categoria>? categorias,
     List<Medida>? medidas,
+    List<Proveedor>? proveedores,
+    List<Marca>? marcas,
     List<Compra>? compras,
   }) {
     return DataCubitState(
@@ -32,11 +38,13 @@ class DataCubitState extends Equatable {
       categorias: categorias ?? this.categorias,
       medidas: medidas ?? this.medidas,
       compras: compras ?? this.compras,
+      proveedores: proveedores ?? this.proveedores,
+      marcas: marcas ?? this.marcas,
       productos: productos ?? this.productos
     );
   }
   
   @override
-  List<Object?> get props => [nombreCompra,categorias,medidas,compras,pedido,productos];
+  List<Object?> get props => [proveedores,marcas, nombreCompra,categorias,medidas,compras,pedido,productos];
  }
 

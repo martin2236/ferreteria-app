@@ -6,7 +6,9 @@ class MapperMedida{
   static Medida medidaAEntidad( MedidaDb medidaDb){
     return Medida(
       id: medidaDb.id, 
-      nombre: medidaDb.nombre
+      nombre: medidaDb.nombre,
+      updatedAt: medidaDb.updatedAt, 
+      deletedAt: medidaDb.deletedAt, 
       );
       }
   }

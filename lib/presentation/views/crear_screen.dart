@@ -8,7 +8,6 @@ import '../../domain/entities/producto_entitie.dart';
 import '../widgets/imputs/input_sugestion.dart';
 import '../widgets/widget.dart';
 
-
 class CrearScreen extends StatefulWidget {
   const CrearScreen({super.key});
 
@@ -32,7 +31,7 @@ class _CrearScreenState extends State<CrearScreen> {
 
           if (compras == null) {
             dataCubit.traerCompras();
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           return SingleChildScrollView(
@@ -54,7 +53,8 @@ class _CrearScreenState extends State<CrearScreen> {
                           child: Text(
                             'Nueva Compra',
                             style: GoogleFonts.lobster(
-                              textStyle: text.displaySmall!.copyWith(color: Colors.white),
+                              textStyle: text.displaySmall!
+                                  .copyWith(color: Colors.white),
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -88,7 +88,8 @@ class _CrearScreenState extends State<CrearScreen> {
                             icon: const Icon(Icons.playlist_add_rounded),
                             label: const Text('Agregar Compra'),
                             style: ButtonStyle(
-                              backgroundColor: WidgetStateProperty.all(Colors.purple),
+                              backgroundColor:
+                                  WidgetStateProperty.all(Colors.purple),
                             ),
                             onPressed: () async {
                               if (compra != '') {
@@ -105,10 +106,11 @@ class _CrearScreenState extends State<CrearScreen> {
                   width: size.width * 0.9,
                   child: Text(
                     'Últimas compras',
-                    style: text.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
+                    style:
+                        text.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
-                Container(
+                SizedBox(
                   height: size.height * 0.5,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -140,8 +142,14 @@ class _ProductoCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Icon(Icons.shopping_bag_outlined, size: 30,),
-          Text(producto.nombre, textAlign: TextAlign.center,),
+          const Icon(
+            Icons.shopping_bag_outlined,
+            size: 30,
+          ),
+          Text(
+            producto.nombre,
+            textAlign: TextAlign.center,
+          ),
           Text('\$${producto.precio.toStringAsFixed(3)}'),
         ],
       ),
@@ -151,7 +159,7 @@ class _ProductoCard extends StatelessWidget {
 
 class _CompraCard extends StatelessWidget {
   final String nombre;
-  const _CompraCard({super.key, required this.nombre});
+  const _CompraCard({required this.nombre});
 
   @override
   Widget build(BuildContext context) {
@@ -162,12 +170,9 @@ class _CompraCard extends StatelessWidget {
         child: Container(
           height: 40,
           color: Colors.purple.shade100,
-          child:  Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(nombre)
-            ]
-            ),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Text(nombre)]),
         ),
       ),
     );

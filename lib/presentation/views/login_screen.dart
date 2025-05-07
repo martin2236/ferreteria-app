@@ -16,11 +16,21 @@ class LoginScreen extends StatelessWidget {
     final dataCubit = context.watch<DataCubit>();
     final categorias = dataCubit.state.categorias;
     final medidas = dataCubit.state.medidas;
+    final proveedores = dataCubit.state.proveedores;
+     final marcas = dataCubit.state.marcas;
+
+
     if(categorias == null){
        dataCubit.traerCategorias();
     }
     if(medidas == null){
        dataCubit.traerMedidas();
+    }
+    if(proveedores == null){
+       dataCubit.traerProveedores();
+    }
+    if(marcas == null){
+       dataCubit.traerMarcas();
     }
     return Scaffold(
         body: Column(
@@ -63,18 +73,18 @@ class LoginScreen extends StatelessWidget {
                        textStyle: text.headlineLarge,
                      ),
                        ),
-                       Padding(
-                         padding: const EdgeInsets.symmetric(horizontal: 20),
+                       const Padding(
+                         padding: EdgeInsets.symmetric(horizontal: 20),
                          child: CustomTextFormField(
                            hint: 'Usuario',
-                           icon:const Icon(Icons.person),
+                           icon:Icon(Icons.person),
                          )
                          ),
-                       Padding(
-                         padding: const EdgeInsets.symmetric(horizontal: 20),
+                       const Padding(
+                         padding: EdgeInsets.symmetric(horizontal: 20),
                          child: CustomTextFormField(
                            hint: 'Contraseña',
-                           icon:const Icon(Icons.password_outlined),
+                           icon:Icon(Icons.password_outlined),
                          ),
                        ),
                        SizedBox(
@@ -83,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                            padding: const EdgeInsets.symmetric(horizontal: 20),
                            child: FilledButton(
                              onPressed: (){
-                               router.go('/home/1');
+                               router.go('/productos');
                              }, 
                             style: ButtonStyle(
                                  backgroundColor: WidgetStateProperty.all(Colors.purple)

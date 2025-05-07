@@ -7,7 +7,10 @@ class MapperCategoria{
   static Categoria categoriaAEntidad( CategoriaDb categoriaDb){
     return Categoria(
       id: categoriaDb.id, 
-      nombre: categoriaDb.nombre
+      nombre: categoriaDb.nombre,
+      imagen: categoriaDb.imagen,
+      updatedAt: categoriaDb.updatedAt,
+      deletedAt: categoriaDb.deletedAt
       );
       }
   }
